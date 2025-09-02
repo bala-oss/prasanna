@@ -1,34 +1,12 @@
-import React from "react";
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Logout from './Logout';
+import { Link } from "react-router-dom";
 
-export const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
-    const button={marginRight:'20px', fontSize:'1.2rem', fontWeight:'700', padding:'0.3rem 1.4rem'}
-    return (
-            <AppBar sx={{ bgcolor: '#333' }}>
-                <Toolbar>
-                    <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-                        Tech Coffee Break
-                    </Typography>
-                    {!isLoggedIn ? (
-                        <>
-                            <Button variant="contained" style={button} color="error" component={Link} to="/login">
-                                Login 
-                            </Button>
-
-                            <Button variant="contained" style={button} color="success" component={Link} to="/signup">
-                                Signup
-                            </Button>
-                        </>
-                    ) : (
-                        <Logout setIsLoggedIn={setIsLoggedIn} />
-                    )}
-                </Toolbar>
-            </AppBar>
-    );
-};
-                        
+export default function Navbar({ isLoggedIn }) {
+  return (
+    <nav style={{ padding: "10px", background: "#282c34", color: "white" }}>
+      <Link to="/" style={{ margin: "10px", color: "white" }}>Home</Link>
+      {!isLoggedIn && <Link to="/login" style={{ margin: "10px", color: "white" }}>Login</Link>}
+      {!isLoggedIn && <Link to="/signup" style={{ margin: "10px", color: "white" }}>Signup</Link>}
+      {isLoggedIn && <Link to="/logout" style={{ margin: "10px", color: "white" }}>Logout</Link>}
+    </nav>
+  );
+          }
