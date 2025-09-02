@@ -1,39 +1,23 @@
-import {React, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Home from "./Components/Home";
-import Login from "./Components/Login";
-import SignUp from "./Components/SignUp";
-import { Navbar } from "./Components/Navbar";
-// import ProtectedRoute from "./Components/ProtectedRoute";
-import axios from "axios";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Logout from "./components/Logout";
 
-function App() {
+export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-      axios.get('http://localhost:3001/user', { withCredentials: true })
-          .then(response => {
-              if (response.data.user) {
-                  setIsLoggedIn(true);
-              } else {
-                  setIsLoggedIn(false);
-              }
-          })
-          .catch(() => setIsLoggedIn(false));
-  }, []);
-
   return (
-      <div>
-          <BrowserRouter>
-              <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-              <Routes>
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/login" element={isLoggedIn ? <Navigate to="/home" /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-                  <Route path="/signup" element={isLoggedIn ? <Navigate to="/home" /> : <SignUp setIsLoggedIn={setIsLoggedIn} />} />
-              </Routes>
-          </BrowserRouter>
-      </div>
+    <Router>
+      <Navbar isLoggedIn={isLoggedIn} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
+      </Routes>
+    </Router>
   );
-}
-
-export default App;
+    }
