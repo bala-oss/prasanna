@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './AuthForms.css'; // Custom CSS for Auth Forms
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -15,51 +15,51 @@ const Signup = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/signup', { username, email, password });
       setMessage(response.data.message);
-      navigate('/login'); // Redirect to login after successful signup
+      navigate('/login');
     } catch (error) {
       setMessage(error.response?.data?.message || 'Signup failed');
     }
   };
 
   return (
-    <div className="card p-4">
-      <h2 className="mb-4">Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+    <div className="auth-card">
+      <h2 className="auth-title">Sign Up</h2>
+      <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
           <label htmlFor="username" className="form-label">Username</label>
           <input
             type="text"
-            className="form-control"
+            className="form-input"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label htmlFor="email" className="form-label">Email address</label>
           <input
             type="email"
-            className="form-control"
+            className="form-input"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group">
           <label htmlFor="password" className="form-label">Password</label>
           <input
             type="password"
-            className="form-control"
+            className="form-input"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        <button type="submit" className="btn btn-success">Sign Up</button>
-        {message && <p className="mt-3 text-info">{message}</p>}
+              </div>
+              <button type="submit" className="auth-button success">Sign Up</button>
+        {message && <p className="auth-message info">{message}</p>}
       </form>
     </div>
   );
