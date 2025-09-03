@@ -5,12 +5,12 @@ const Logout = ({ handleLogout }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    handleLogout(); // Clear token and update auth state in App.js
-    navigate('/login'); // Redirect to login page
+    handleLogout();
+    navigate('/login');
   }, [handleLogout, navigate]);
 
   return (
-    <div>
+    <div className="logout-container">
       <h2>Logging out...</h2>
     </div>
   );
